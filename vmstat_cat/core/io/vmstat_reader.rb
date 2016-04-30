@@ -32,22 +32,29 @@ module VmstatCat
         attr_reader :header, :body, :footer
         
         def initialize(header, body, footer)
-          @header = header
+          @header = header.nil? ? "" : header
           @body = Body.new(body)
-          @footer = footer
+          @footer = footer.nil? ? "" : footer
+        end
+        
+        def empty?
+          @header.length == 0 || @body.empty? || @footer.length == 0
         end
         
         class Body
+          attr_reader :length
+          
           def initialize(body_data)
-            @body_data = body_data
+            @body_data = body_data.nil? ? [] : body_data
+            @length = @body_data.length
           end
           
           def [](index)
             @body_data[index]
           end
           
-          def length
-            @body_data.length
+          def empty?
+            @length == 0
           end
         end
       end
