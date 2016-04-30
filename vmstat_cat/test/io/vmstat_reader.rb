@@ -56,6 +56,13 @@ class TestVmstatLogReader < Test::Unit::TestCase
     assert_equal('Pageouts:                             2303.', body[10])
   end
   
+  def test_body_length
+    expected = 11
+    actual = @reader.read_single.body.length
+
+    assert_equal(expected, actual)
+  end
+  
   def test_has_next?
     test = lambda{|expected|
       actual = @reader.has_next?

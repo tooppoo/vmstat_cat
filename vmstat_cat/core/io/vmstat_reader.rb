@@ -45,6 +45,10 @@ module VmstatCat
           def [](index)
             @body_data[index]
           end
+          
+          def length
+            @body_data.length
+          end
         end
       end
       
