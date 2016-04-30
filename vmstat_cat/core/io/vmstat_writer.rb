@@ -25,7 +25,7 @@ module VmstatCat
         
         # 同じVmstatWriterを使い回す限り、@created_atの値は不変。
         # => 一つのインスタンスのwrite()を実行する限り、出力先ファイルは一定。
-        @created_at = set_created_at
+        @created_at = created_at
         @first_writing = true
       end
       
