@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-module Vmstat
+module VmstatCat
   module Config
     test_mode = $0 == __FILE__
     check_require_path = lambda{|timing|
