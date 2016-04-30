@@ -1,0 +1,15 @@
+#encoding: utf-8
+
+module Vmstat
+  module Config
+    test_mode = $0 == __FILE__
+    check_require_path = lambda{|timing|
+      puts "#{timing}-----------------------"
+      puts $:
+      puts "--------------------------------"
+    }
+    check_require_path.call('before') if test_mode
+    $: << File.expand_path(__dir__)
+    check_require_path.call('after') if test_mode
+  end
+end
