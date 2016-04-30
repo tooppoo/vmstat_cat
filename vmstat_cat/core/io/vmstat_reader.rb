@@ -28,6 +28,12 @@ module VmstatCat
         @log_data.length > @header_index
       end
       
+      def each(&block)
+        while has_next? do
+          block.call(self)
+        end
+      end
+      
       class ReadData
         attr_reader :header, :body, :footer
         

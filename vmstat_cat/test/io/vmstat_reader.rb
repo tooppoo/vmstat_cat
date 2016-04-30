@@ -77,4 +77,16 @@ class TestVmstatLogReader < Test::Unit::TestCase
     @reader.read_single
     test.call(false)
   end
+  
+  def test_each
+    expected_page_size = 4096
+    
+    @reader.each{|reader|
+      expected = "Mach Virtual Memory Statistics: (page size of #{expected_page_size} bytes)"
+      actual = reader.read_single.header
+      
+      assert_equal(expected, actual)
+      expected_page_size += 1000
+    }
+  end
 end
