@@ -1,11 +1,18 @@
 #encoding: utf-8
 
+require_relative File::expand_path('../config', __dir__)
+
 require 'fileutils'
 require 'csv'
+require 'app_logger'
+require 'created_at'
 
 module VmstatCat
   module IO
+    @@logger = AppLogger::get
+    
     class VmstatWriter
+      include CreatedAt
       
       attr_reader :dir
       
