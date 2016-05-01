@@ -71,7 +71,7 @@ class Main
   class Indicator
     attr_reader :size
     
-    def initialize(size, unit = 50)
+    def initialize(size, unit = 80)
       @size = size
       @unit = size / unit
       @index = 1
