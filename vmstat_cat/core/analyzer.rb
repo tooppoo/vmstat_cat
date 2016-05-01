@@ -13,16 +13,18 @@ module VmstatCat
     module Part
       @@logger = AppLogger::get
       
-      Header = lambda{|header_data|
+      Header = lambda{|analyzed_data|
         @@logger.info('Analyzer::execute : Header')
         
-        result = { :page_size => extraction(header_data) }
+        result = { :page_size => extraction(analyzed_data.header) }
         
         @@logger.debug(result)
         result
       }
-      Body = lambda{|body_data|
+      Body = lambda{|analyzed_data|
         @@logger.info('Analyzer::execute : Body')
+        body_data = analyzed_data.body
+        
         result = {
           :free               => extraction(body_data[0]),
           :active             => extraction(body_data[1]),
@@ -39,10 +41,11 @@ module VmstatCat
         @@logger.debug(result)
         result
       }
-      Footer = lambda{|footer_data|
+      Footer = lambda{|analyzed_data|
         @@logger.info('Analyzer::execute : Footer')
+        
         footer_ext = lambda{|mark|
-          footer_data.match(/[0-9]+ ?#{mark}/)[0].gsub(/[^0-9]+/, "").to_i
+          analyzed_data.footer.match(/[0-9]+ ?#{mark}/)[0].gsub(/[^0-9]+/, "").to_i
         }
         
         result = {
@@ -53,12 +56,12 @@ module VmstatCat
         @@logger.debug(result)
         result
       }
-      All = lambda{|read_data|
+      All = lambda{|analyzed_data|
         @@logger.info('Analyzer::execute : All')
         
-        header = Header.call(read_data.header)
-        body = Body.call(read_data.body)
-        footer = Footer.call(read_data.footer)
+        header = Header.call(analyzed_data)
+        body = Body.call(analyzed_data)
+        footer = Footer.call(analyzed_data)
         
         result = {}.merge(header).merge(body).merge(footer)
         @@logger.debug(result)
@@ -71,16 +74,16 @@ module VmstatCat
       end
     end
     
-    def self.execute(read_data, part = Part::All)
+    def self.execute(analyzed_data, part = Part::All)
       @@logger.info(AppLogger::delimiter)
       @@logger.info('Analyzer::execute start')
       
-      if read_data.nil? || read_data.empty? then
+      if analyzed_data.nil? || analyzed_data.empty? then
         @@logger.info('Analyzer::execute data is empty. finish')
         return {}
       end
       
-      result = part.call(read_data)
+      result = part.call(analyzed_data)
       @@logger.info('Analyzer::execute finish')
       result
     end

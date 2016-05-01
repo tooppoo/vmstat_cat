@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-require_relative '../core/config'
+require_relative File::expand_path('../core/config', __dir__)
 
 require 'test/unit'
 require 'analyzer'
@@ -18,7 +18,7 @@ class TestAnalyzer < Test::Unit::TestCase
   
   def test_analyze_header
     expected = {:page_size => 4096}
-    actual = Analyzer::execute(@read_data.header, Analyzer::Part::Header)
+    actual = Analyzer::execute(@read_data, Analyzer::Part::Header)
     
     assert_equal(expected, actual)
   end
@@ -37,7 +37,7 @@ class TestAnalyzer < Test::Unit::TestCase
       :pageins => 3953684,
       :pageouts => 2303
     }
-    actual = Analyzer::execute(@read_data.body, Analyzer::Part::Body)
+    actual = Analyzer::execute(@read_data, Analyzer::Part::Body)
     
     assert_equal(expected, actual)
   end
@@ -48,7 +48,7 @@ class TestAnalyzer < Test::Unit::TestCase
       :hits => 15,
       :hit_rate => 0
     }
-    actual = Analyzer::execute(@read_data.footer, Analyzer::Part::Footer)
+    actual = Analyzer::execute(@read_data, Analyzer::Part::Footer)
   end
   
   def test_analyze
