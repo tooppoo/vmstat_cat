@@ -20,6 +20,7 @@ module VmstatCat
       @dir = DEFAULT_PATH
       
       set_option
+      design_usage
     end
     
     def parse(args)
@@ -37,9 +38,22 @@ module VmstatCat
     
     private 
     def set_option
-      @opt.on('-d VAL') {|v|
+      @opt.on('-o', '--output=VAL', '出力先のパスを指定する') {|v|
         @dir = v
       }
+    end
+    
+    def design_usage
+      @opt.banner = 'Usage: ruby main.rb src [output]'
+      @opt.on_head(
+        'src: vm_statのログが記載されたテキストファイル',
+        ''
+      )
+      @opt.on_tail(
+        'example:',
+        'ruby main.rb ./sample/sample.log',
+        'ruby main.rb ./sample/sample.log -o ./out/result.csv'
+      )
     end
   end
 end
