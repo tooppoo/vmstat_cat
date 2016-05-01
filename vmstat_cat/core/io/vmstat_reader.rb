@@ -7,11 +7,10 @@ module VmstatCat
     @@logger = AppLogger::get
     
     class VmstatReader
-      
       attr_reader :header, :footer, :body
       
       def initialize(file_path)
-        @@logger.info('='*50)
+        @@logger.info(AppLogger.delimiter)
         @@logger.info('VmstatReader#new start')
         @@logger.debug("arg/file_path : #{file_path}")
         
@@ -23,6 +22,7 @@ module VmstatCat
       end
       
       def read_single
+        @@logger.info(AppLogger.delimiter)
         @@logger.info('VmstatReader#read_single start')
         
         unless has_next?
@@ -75,6 +75,7 @@ module VmstatCat
             @body_data = body_data.nil? ? [] : body_data
             @length = @body_data.length
             
+            @@logger.debug("Body#new @body_data : #{@body_data}")
             @@logger.info('Body#new end')
           end
           
