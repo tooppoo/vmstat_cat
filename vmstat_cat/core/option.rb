@@ -38,8 +38,13 @@ module VmstatCat
     
     private 
     def set_option
-      @opt.on('-o', '--output=VAL') {|v|
-        @dir = v
+      @opt.on(
+        '-o', '--output=VAL',
+        '出力先のパスを指定する。',
+        '省略された場合は以下のパスに出力される。',
+        DEFAULT_PATH
+      ){|v|
+        @dir = File::expand_path(v)
       }
     end
     
@@ -49,18 +54,12 @@ module VmstatCat
         'src: vm_statのログが記載されたテキストファイル',
         ''
       )
-      @opt.on(
-        '-o', '--output',
-        '出力先のパスを指定する。',
-        '省略された場合は以下のパスに出力される。',
-        DEFAULT_PATH
-      )
       @opt.separator('')
       @opt.on_tail(
         'example:',
         'ruby main.rb ./sample/sample.log',
         'ruby main.rb ./sample/sample.log -o ./out/result.csv',
-        'ruby main.rb ./sample/sample.log --output ./out/result.csv'
+        'ruby main.rb ./sample/sample.log --output=./out/result.csv'
       )
     end
   end
