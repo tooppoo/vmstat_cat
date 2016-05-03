@@ -7,7 +7,6 @@ require 'io/vmstat_writer'
 require 'analyzer'
 require 'option'
 require 'error'
-require 'app_logger'
 
 return unless $0 == __FILE__
 
