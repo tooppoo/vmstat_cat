@@ -23,11 +23,11 @@ class Main
     @src_log = args[0]
     @out_dir = opt.dir
     
-    puts "整形するログファイル     : #{@src_log}"
+    puts "整形するログファイル     : #{File::expand_path(@src_log)}"
     puts "整形したファイルの出力先 : #{@out_dir}"
     
-    raise SrcLogError.new('整形するログファイルが指定されていません') if args[0].nil? || args[0].length == 0
-    raise SrcLogError.new('指定されたログファイルが見つかりません') if @src_log.nil? || not(File::exists?(@src_log))
+    raise SrcLogError.new('整形するログファイルが指定されていません') if @src_log.nil? || @src_log.length == 0
+    raise SrcLogError.new('指定されたログファイルが見つかりません') unless File::exists?(@src_log)
   end
   
   def read
@@ -99,6 +99,9 @@ begin
   analyzed = main.analyze(raw_data)
   main.write(analyzed)
 rescue SrcLogError => e
+  puts e.message
+rescue OptionParser::ParseError => e
+  puts "不正なオプションが指定されました。"
   puts e.message
 rescue => e
   logger = AppLogger::get
