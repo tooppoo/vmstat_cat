@@ -88,6 +88,10 @@ class Main
         puts ''
       end
     end
+    
+    def reset
+      @index = 1
+    end
   end
 end
 
