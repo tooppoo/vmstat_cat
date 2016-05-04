@@ -21,4 +21,5 @@ module VmstatCat
       "#{y + m + d}_#{h + mi + s}"
     end
   end
+  CreatedAt.freeze
 end

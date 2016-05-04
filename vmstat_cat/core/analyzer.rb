@@ -20,7 +20,7 @@ module VmstatCat
         
         @@logger.debug(result)
         result
-      }
+      }.freeze
       Body = lambda{|analyzed_data|
         @@logger.info('Analyzer::execute : Body')
         body_data = analyzed_data.body
@@ -40,7 +40,7 @@ module VmstatCat
         }
         @@logger.debug(result)
         result
-      }
+      }.freeze
       Footer = lambda{|analyzed_data|
         @@logger.info('Analyzer::execute : Footer')
         
@@ -55,7 +55,7 @@ module VmstatCat
         }
         @@logger.debug(result)
         result
-      }
+      }.freeze
       All = lambda{|analyzed_data|
         @@logger.info('Analyzer::execute : All')
         
@@ -66,13 +66,14 @@ module VmstatCat
         result = {}.merge(header).merge(body).merge(footer)
         @@logger.debug(result)
         result
-      }
+      }.freeze
       
       private
       def self.extraction(str)
         str.gsub(/[^0-9]/, "").to_i
       end
     end
+    Part.freeze
     
     def self.execute(analyzed_data, part = Part::All)
       @@logger.info(AppLogger::delimiter)

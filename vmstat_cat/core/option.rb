@@ -9,7 +9,7 @@ module VmstatCat
   class Option
     include Singleton
     
-    DEFAULT_PATH = File::expand_path('../../out', __FILE__) + '/result.csv'
+    DEFAULT_PATH = (File::expand_path('../../out', __FILE__) + '/result.csv').freeze
     
     @@logger = AppLogger::get
     

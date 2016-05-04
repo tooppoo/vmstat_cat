@@ -12,4 +12,5 @@ module VmstatCat
     $: << File::expand_path(__dir__)
     check_require_path.call('after') if test_mode
   end
+  Config.freeze
 end

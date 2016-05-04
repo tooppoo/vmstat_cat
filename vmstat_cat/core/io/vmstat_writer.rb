@@ -24,7 +24,7 @@ module VmstatCat
         
         @ext = File::extname(output_path)
         @name = File::basename(output_path, @ext)
-        @dir = File::dirname(output_path)
+        @dir = File::dirname(output_path).freeze
         
         # 同じVmstatWriterを使い回す限り、@created_atの値は不変。
         # => 一つのインスタンスのwrite()を実行する限り、出力先ファイルは一定。
