@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-require_relative '../../core/config'
+require_relative File::expand_path('../../core/config', __dir__)
 
 require 'test/unit'
 require 'io/vmstat_reader'
@@ -9,7 +9,7 @@ include VmstatCat::IO
 
 class TestVmstatLogReader < Test::Unit::TestCase
   def setup
-    sample_log_path = File.expand_path(__dir__ + '/test.log')
+    sample_log_path = File.expand_path('./test.log', __dir__)
     @reader = VmstatReader.new(sample_log_path)
   end
   

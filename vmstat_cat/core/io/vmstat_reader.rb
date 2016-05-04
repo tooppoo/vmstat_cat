@@ -83,6 +83,12 @@ module VmstatCat
             @body_data[index]
           end
           
+          def each(&block)
+            @body_data.each{|val|
+              block.call(val)
+            }
+          end
+          
           def empty?
             @length == 0
           end
@@ -101,7 +107,7 @@ module VmstatCat
       end
       
       def footer_index
-        @header_index + 12
+        @header_index + 22
       end
       
       def body_begin_index
@@ -109,11 +115,11 @@ module VmstatCat
       end
       
       def body_end_index
-        @header_index + 11
+        @header_index + 22
       end
       
       def next_header_index
-        @header_index + 13
+        @header_index + 23
       end
     end
   end
