@@ -1,6 +1,8 @@
 #encoding: utf-8
 
-require_relative File::expand_path('../app_logger', __dir__)
+require_relative File::expand_path('../config', __dir__)
+
+require 'app_logger'
 
 module VmstatCat
   module IO
@@ -63,7 +65,7 @@ module VmstatCat
         end
         
         def empty?
-          @header.length == 0 || @body.empty? || @footer.length == 0
+          @header.length == 0 && @body.empty? && @footer.length == 0
         end
         
         class Body
@@ -103,11 +105,11 @@ module VmstatCat
         
         @header_index = next_header_index
         
-        result = ReadData.new(header, body, footer)
+        ReadData.new(header, body, footer)
       end
       
       def footer_index
-        @header_index + 22
+        @header_index + Config::FOOTER_INDEX.to_i
       end
       
       def body_begin_index
@@ -115,11 +117,13 @@ module VmstatCat
       end
       
       def body_end_index
-        @header_index + 22
+        @header_index + Config::BODY_RANGE
       end
       
       def next_header_index
-        @header_index + 23
+        # footer部分が在る => 次のheaderはfooter_index + 1の位置
+        # footer部分が無い => 次のheaderはbody_range + 1の位置
+        @header_index + (Config::FOOTER_EXISTS ? Config::FOOTER_INDEX + 1 : Config::BODY_RANGE + 1)
       end
     end
   end

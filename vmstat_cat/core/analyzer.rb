@@ -1,6 +1,8 @@
 #encoding: utf-8
 
-require_relative File::expand_path('./app_logger', __dir__)
+require_relative File::expand_path('./config', __dir__)
+
+require 'app_logger'
 require 'singleton'
 
 module VmstatCat
@@ -43,6 +45,11 @@ module VmstatCat
       Footer = lambda{|read_data|
         @@logger.info('Analyzer::execute : Footer')
         
+        unless Config::FOOTER_EXISTS then
+          @@logger.info('Analyzer::execute : Footer doesn`t exist')
+          return {}
+        end
+  
         footer_ext = lambda{|mark|
           matched = read_data.footer.match(/[0-9]+ ?#{mark}/)
           matched.nil? ? "" : matched[0].gsub(/[^0-9]+/, "").to_i
