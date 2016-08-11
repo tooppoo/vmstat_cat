@@ -113,26 +113,3 @@ Pageins:                                2532187.
 Pageouts:                                  1587.
 Swapins:                                1062813.
 Swapouts:                               1093920.
-Mach Virtual Memory Statistics: (page size of 4096 bytes)
-Pages free:                              538191.
-Pages active:                            850737.
-Pages inactive:                           96088.
-Pages speculative:                        73793.
-Pages throttled:                              0.
-Pages wired down:                        258875.
-Pages purgeable:                         203611.
-"Translation faults":                  41239012.
-Pages copy-on-write:                     945881.
-Pages zero filled:                     25839884.
-Pages reactivated:                       420552.
-Pages purged:                            282765.
-File-backed pages:                       208789.
-Anonymous pages:                         811829.
-Pages stored in compressor:              587605.
-Pages occupied by compressor:            278734.
-Decompressions:                         1107426.
-Compressions:                           1904226.
-Pageins:                                2532187.
-Pageouts:                                  1587.
-Swapins:                                1062813.
-Swapouts:                               1093920.

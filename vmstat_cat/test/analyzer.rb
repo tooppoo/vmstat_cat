@@ -11,7 +11,7 @@ include VmstatCat::IO
 
 class TestAnalyzer < Test::Unit::TestCase
   def setup
-    sample_log_path = File.expand_path(__dir__ + '/io/test.log')
+    sample_log_path = File.expand_path(__dir__ + '/io/sample.log')
     reader = VmstatReader.new(sample_log_path)
     @read_data = reader.read_single
   end
