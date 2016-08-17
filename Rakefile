@@ -1,5 +1,5 @@
 require 'rake/testtask'
 
-Rake::TestTask.new {|task|
+Rake::TestTask.new("default") {|task|
   task.pattern = './vmstat_cat/test/*/*.rb'
 }
