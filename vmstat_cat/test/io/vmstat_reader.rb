@@ -88,7 +88,6 @@ class TestVmstatLogReader < Test::Unit::TestCase
     }
 
     (RECORD_COUNT + 1).times{|i|
-      p i + 1 < RECORD_COUNT
       test.call(i + 1 < RECORD_COUNT)
     }
   end
